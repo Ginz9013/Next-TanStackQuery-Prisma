@@ -5,6 +5,16 @@ const Mutation = () => {
 
   const mutation = useMutation({
     mutationFn: getTestApi,
+    onSuccess: (values) => {
+      console.log("success!");
+      console.log(values);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+    onMutate: () => {
+      console.log("mutating...");
+    }
   });
 
   const handleMutate = () => {
