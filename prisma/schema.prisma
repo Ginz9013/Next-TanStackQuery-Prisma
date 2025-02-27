@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 定義一個 User 模型
+model User {
+  id       Int     @id @default(autoincrement()) // 主鍵，並自動遞增
+  name     String
+  nickname String
+  email    String  @unique                     // 唯一欄位
+  posts    Post[]                              // 與 Post 模型之間的關聯，一個 User 可以有多篇 Post
+}
+
+// 定義一個 Post 模型
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?  // 使用 ? 表示此欄位可以為 null
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
