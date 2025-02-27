@@ -1,6 +1,6 @@
 export const getTestApi = async () => {
   try {
-    const res = await fetch('http://43.198.219.216:10060/api/connect');
+    const res = await fetch('/api/test');
     
     if (res.status !== 200) {
       throw new Error("錯誤");
